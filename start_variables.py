@@ -1,3 +1,4 @@
+# predefining some variables, to make changing them easier, while testing
 WIDTH, HEIGHT = 600, 800
 FPS = 25
 ENEMY_VELOCITY = 3
@@ -10,5 +11,6 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 WHITE = (255, 255, 255)
 PLAYER_SIZE = (30, 30)
-ENEMY_SIZE = (25, 25)
-BULLET_SIZE = (10, 25)
+ENEMY_SIZE = (30, 30)
+BULLET_SIZE = (10, 30)
+

@@ -1,7 +1,7 @@
 from start_variables import *
 import pygame
 
-
+# loading all game graphics
 bcg = pygame.image.load("bcg.jpg")
 playerimage = pygame.image.load("player.png")
 enemyimage = pygame.image.load("enemy.png")
@@ -10,6 +10,7 @@ playerbullet = pygame.image.load("playerbullet.png")
 enemybullet = pygame.image.load("enemybullet.png")
 
 
+# ship class
 class Ship:
     def __init__(self, x, y, velocity_x, velocity_y, cooldown, size, lives):
         self.x = x
@@ -23,18 +24,21 @@ class Ship:
         self.name = ''
 
 
+# player class, parenting from ship, with scores added
 class Player(Ship):
     def __init__(self, x, y, velocity_x, velocity_y, cooldown, size, lives):
         Ship.__init__(self, x, y, velocity_x, velocity_y, cooldown, size, lives)
-        self.score = 10
+        self.score = 0
 
     def draw(self, win):
         win.blit(playerimage, (self.x - self.size[0] // 2, self.y - self.size[0] // 2))
 
+    # adding bullet to player.bullets array
     def shot(self):
         self.bullets.insert(0, Bullet(self.x, self.y - self.size[1] // 2, BULLET_VELOCITY, BULLET_SIZE))
         self.cooldown = PLAYER_COOLDOWN
 
+    # moving bullets with predefined velocity, deleting bullets that go off-screen
     def bullet_move(self):
         for bullet in self.bullets:
             bullet.y -= bullet.velocity
@@ -46,11 +50,13 @@ class Enemy(Ship):
     def draw(self, win):
         win.blit(enemyimage, (self.x - self.size[0] // 2, self.y - self.size[0] // 2))
 
+    # nearly same as player.shot
     def shot(self):
         self.bullets.insert(0, Bullet(self.x, self.y + self.size[1] // 2,
                                       BULLET_VELOCITY, BULLET_SIZE))
         self.cooldown = ENEMY_COOLDOWN
 
+    # nearly same as player.bullet_move
     def bullet_move(self):
         for bullet in self.bullets:
             bullet.y += bullet.velocity
@@ -70,6 +76,7 @@ class Bullet:
         win.blit(image, (self.x - self.size[0] // 2, self.y - self.size[0] // 2))
 
 
+# class defining menu buttons template
 class Button:
     def __init__(self, size, x, y, text):
         self.size = size
